@@ -184,3 +184,48 @@ export default function draggableModal(config = {}) {
         }
     };
 } 
+
+// Alert 전용(비드래그) 단일 모달 컴포넌트
+export function draggableModalAlert(config = {}) {
+    return {
+        modalId: config.modalId || 'alert-modal',
+        title: config.title || '알림',
+        message: config.message || '',
+        type: config.type || 'info',
+        isOpen: false,
+
+        init() {
+            console.log('Draggable Alert 모달 초기화:', this.modalId);
+        },
+
+        openModal() {
+            console.log('Draggable Alert 모달 열기:', this.modalId);
+            this.isOpen = true;
+            document.body.style.overflow = 'hidden';
+            this.disableOtherModals();
+        },
+
+        close() {
+            console.log('Draggable Alert 모달 닫기:', this.modalId);
+            this.isOpen = false;
+            document.body.style.overflow = '';
+            this.enableOtherModals();
+        },
+
+        disableOtherModals() {
+            const otherModals = document.querySelectorAll('[id^="draggable-modal"]:not([id*="alert"])');
+            otherModals.forEach(modal => {
+                modal.style.zIndex = '1000';
+                modal.style.pointerEvents = 'none';
+            });
+        },
+
+        enableOtherModals() {
+            const otherModals = document.querySelectorAll('[id^="draggable-modal"]:not([id*="alert"])');
+            otherModals.forEach(modal => {
+                modal.style.zIndex = '';
+                modal.style.pointerEvents = '';
+            });
+        }
+    };
+}

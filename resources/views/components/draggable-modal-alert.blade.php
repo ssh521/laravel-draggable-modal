@@ -16,6 +16,8 @@ $typeClasses = match($type) {
     'warning' => 'border-yellow-500 bg-yellow-50 dark:bg-yellow-900/20',
     'error' => 'border-red-500 bg-red-50 dark:bg-red-900/20',
     'info' => 'border-blue-500 bg-blue-50 dark:bg-blue-900/20',
+    'primary' => 'border-indigo-500 bg-indigo-50 dark:bg-indigo-900/20',
+    'secondary' => 'border-gray-500 bg-gray-50 dark:bg-gray-900/20',
     default => 'border-gray-500 bg-gray-50 dark:bg-gray-900/20'
 };
 
@@ -24,6 +26,8 @@ $iconClasses = match($type) {
     'warning' => 'text-yellow-600 dark:text-yellow-400',
     'error' => 'text-red-600 dark:text-red-400',
     'info' => 'text-blue-600 dark:text-blue-400',
+    'primary' => 'text-indigo-600 dark:text-indigo-400',
+    'secondary' => 'text-gray-600 dark:text-gray-400',
     default => 'text-gray-600 dark:text-gray-400'
 };
 
@@ -32,6 +36,8 @@ $buttonClasses = match($type) {
     'warning' => 'bg-yellow-600 hover:bg-yellow-700 text-white',
     'error' => 'bg-red-600 hover:bg-red-700 text-white',
     'info' => 'bg-blue-600 hover:bg-blue-700 text-white',
+    'primary' => 'bg-indigo-600 hover:bg-indigo-700 text-white',
+    'secondary' => 'bg-gray-600 hover:bg-gray-700 text-white',
     default => 'bg-gray-600 hover:bg-gray-700 text-white'
 };
 @endphp
@@ -100,7 +106,7 @@ id="{{ $modalId }}"
             </div>
 
             @if($showCloseButton)
-            <button @click="close()" class="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-colors duration-200">
+            <button @click="close()" class="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-colors duration-200 cursor-pointer">
                 <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
                     <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
                 </svg>
@@ -118,62 +124,11 @@ id="{{ $modalId }}"
         <!-- 버튼 -->
         <div class="flex justify-end p-4 border-t border-gray-200 dark:border-gray-700">
             <button @click="close()" 
-                    class="px-4 py-2 rounded-md font-medium transition-colors duration-200 {{ $buttonClasses }}">
+                    class="px-4 py-2 rounded-md font-medium transition-colors duration-200 cursor-pointer {{ $buttonClasses }}">
                 확인
             </button>
         </div>
     </div>
 </div>
 
-<script>
-// Draggable Alert 모달 컴포넌트
-document.addEventListener('alpine:init', () => {
-    Alpine.data('draggableModalAlert', (config = {}) => ({
-        modalId: config.modalId || 'alert-modal',
-        title: config.title || '알림',
-        message: config.message || '',
-        type: config.type || 'info',
-        isOpen: false,
-
-        init() {
-            console.log('Draggable Alert 모달 초기화:', this.modalId);
-        },
-
-        openModal() {
-            console.log('Draggable Alert 모달 열기:', this.modalId);
-            this.isOpen = true;
-            document.body.style.overflow = 'hidden'; // 스크롤 방지
-            
-            // 다른 모든 모달을 일시적으로 비활성화
-            this.disableOtherModals();
-        },
-
-        close() {
-            console.log('Draggable Alert 모달 닫기:', this.modalId);
-            this.isOpen = false;
-            document.body.style.overflow = ''; // 스크롤 복원
-            
-            // 다른 모달들을 다시 활성화
-            this.enableOtherModals();
-        },
-        
-        disableOtherModals() {
-            // 다른 모든 모달의 z-index를 낮춤
-            const otherModals = document.querySelectorAll('[id^="draggable-modal"]:not([id*="alert"])');
-            otherModals.forEach(modal => {
-                modal.style.zIndex = '1000';
-                modal.style.pointerEvents = 'none';
-            });
-        },
-        
-        enableOtherModals() {
-            // 다른 모든 모달의 z-index와 pointer-events를 복원
-            const otherModals = document.querySelectorAll('[id^="draggable-modal"]:not([id*="alert"])');
-            otherModals.forEach(modal => {
-                modal.style.zIndex = '';
-                modal.style.pointerEvents = '';
-            });
-        }
-    }));
-});
-</script>
+ 

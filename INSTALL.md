@@ -121,34 +121,27 @@ Route::get('/test-modal', function () {
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body class="p-10">
-    <h1 class="text-2xl font-bold mb-4">Test Draggable Modal</h1>
+    <div x-data="{}">
+        <h1 class="text-2xl font-bold mb-4">Test Draggable Modal</h1>
 
-    <button onclick="openModal('test-modal')"
-            class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">
-        Open Modal
-    </button>
+        <x-modal-trigger modal-id="test-modal" text="Open Modal" modalType="single" class="mb-4" />
 
-    <x-draggable-modal id="test-modal" title="Test Modal" :width="600" :height="400">
-        <div class="p-5">
-            <p>If you can see this modal, the installation was successful!</p>
-            <ul class="mt-3 list-disc list-inside">
-                <li>Drag the title bar to move the modal</li>
-                <li>Drag the bottom-right corner to resize</li>
-                <li>Press ESC to close</li>
-            </ul>
-        </div>
-    </x-draggable-modal>
-
-    <script>
-        function openModal(modalId) {
-            window.dispatchEvent(new CustomEvent('draggable-modal', {
-                detail: { modalId: modalId }
-            }));
-        }
-    </script>
+        <x-draggable-modal id="test-modal" title="Test Modal" :width="600" :height="400">
+            <div class="p-5">
+                <p>If you can see this modal, the installation was successful!</p>
+                <ul class="mt-3 list-disc list-inside">
+                    <li>Drag the title bar to move the modal</li>
+                    <li>Drag the bottom-right corner to resize</li>
+                    <li>Press ESC to close</li>
+                </ul>
+            </div>
+        </x-draggable-modal>
+    </div>
 </body>
 </html>
 ```
+
+> 참고: `x-modal-trigger`는 내부적으로 Alpine의 `$dispatch`를 사용합니다. 트리거와 모달이 Alpine 스코프 안에 있도록 예제처럼 `x-data="{}"`로 감싸주세요. 그렇지 않으면 클릭 이벤트가 올바르게 전파되지 않을 수 있습니다.
 
 Visit `http://your-app.test/test-modal` and click the "Open Modal" button. If the modal appears and you can drag and resize it, the installation is complete!
 

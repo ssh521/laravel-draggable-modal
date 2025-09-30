@@ -2,7 +2,7 @@
     'text' => 'Open Modal',
     'modalId' => null,
     'modal-id' => null, // kebab-case 지원
-    'variant' => 'primary', // primary, secondary, danger
+    'variant' => 'primary', // primary, secondary, danger, warning, success, info
     'type' => 'button', // button, link
     'modalType' => 'multi' // multi, single, alert
 ])
@@ -13,6 +13,9 @@
         'primary' => 'bg-indigo-600 dark:bg-indigo-500 hover:bg-indigo-700 dark:hover:bg-indigo-400 text-white',
         'secondary' => 'bg-gray-600 dark:bg-gray-500 hover:bg-gray-700 dark:hover:bg-gray-400 text-white',
         'danger' => 'bg-red-600 dark:bg-red-500 hover:bg-red-700 dark:hover:bg-red-400 text-white',
+        'warning' => 'bg-yellow-500 dark:bg-yellow-400 hover:bg-yellow-600 dark:hover:bg-yellow-300 text-black',
+        'success' => 'bg-green-600 dark:bg-green-500 hover:bg-green-700 dark:hover:bg-green-400 text-white',
+        'info' => 'bg-blue-600 dark:bg-blue-500 hover:bg-blue-700 dark:hover:bg-blue-400 text-white',
         default => 'bg-indigo-600 dark:bg-indigo-500 hover:bg-indigo-700 dark:hover:bg-indigo-400 text-white'
     };
     
@@ -21,6 +24,9 @@
         'primary' => 'text-indigo-600 dark:text-indigo-400 hover:text-indigo-800 dark:hover:text-indigo-300',
         'secondary' => 'text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-300',
         'danger' => 'text-red-600 dark:text-red-400 hover:text-red-800 dark:hover:text-red-300',
+        'warning' => 'text-yellow-600 dark:text-yellow-400 hover:text-yellow-800 dark:hover:text-yellow-300',
+        'success' => 'text-green-600 dark:text-green-400 hover:text-green-800 dark:hover:text-green-300',
+        'info' => 'text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300',
         default => 'text-indigo-600 dark:text-indigo-400 hover:text-indigo-800 dark:hover:text-indigo-300'
     };
     

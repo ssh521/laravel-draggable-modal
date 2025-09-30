@@ -26,8 +26,16 @@ class DraggableModalServiceProvider extends ServiceProvider
             __DIR__.'/../resources/js' => resource_path('js/vendor/draggable-modal'),
         ], 'draggable-modal-js');
 
+        // Publish sample views (optional)
+        $this->publishes([
+            __DIR__.'/../resources/views/sample' => resource_path('views/draggable-modal-sample-code'),
+        ], 'draggable-modal-sample-views');
+
         // Load views from package
         $this->loadViewsFrom(__DIR__.'/../resources/views', 'draggable-modal');
+
+        // Load sample routes
+        $this->loadRoutesFrom(__DIR__.'/../routes/draggable-modal-sample.php');
 
         // Register Blade components
         Blade::component('draggable-modal', DraggableModal::class);
