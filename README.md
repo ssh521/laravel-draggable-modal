@@ -261,7 +261,7 @@ Or add it to your CSS file:
 | Prop | Type | Default | Description |
 |------|------|---------|-------------|
 | `id` | string | auto-generated | Unique identifier for the modal |
-| `title` | string | '알림' | Alert title |
+| `title` | string | 'Alert' | Alert title |
 | `message` | string | '' | Alert message |
 | `type` | string | 'info' | Alert type: info, success, warning, error |
 | `showCloseButton` | bool | true | Show close button |
@@ -332,17 +332,17 @@ If you change file locations or names, update your imports accordingly and rebui
 
 ## Troubleshooting
 
-1. `x-cloak` 스타일이 누락되지 않았는지 확인하세요.
-2. `resources/js/app.js`에서 `window.Alpine = Alpine;` 설정 후 `import './vendor/draggable-modal/init'`를 `Alpine.start()` 전에 불러오세요.
-3. 퍼블리시 후 반영되지 않으면 캐시를 비우세요:
+1. Ensure the `x-cloak` style is present.
+2. In `resources/js/app.js`, set `window.Alpine = Alpine;` and import `./vendor/draggable-modal/init` BEFORE `Alpine.start()`.
+3. If changes after publishing are not reflected, clear caches:
    ```bash
    php artisan optimize:clear
    ```
-4. 빌드/번들 후에도 동작하지 않으면 다시 빌드:
+4. If it still doesn't work after bundling, rebuild assets:
    ```bash
    npm run build
    ```
-5. 콘솔 에러를 확인하고, 퍼블리시된 경로가 맞는지 점검하세요:
+5. Check the browser console for errors and verify published paths exist:
    - `resources/js/vendor/draggable-modal/init.js`
    - `resources/js/vendor/draggable-modal/modal-manager.js`
 
