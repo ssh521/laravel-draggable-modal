@@ -1,12 +1,12 @@
 {
-    "name": "philipshin/laravel-draggable-modal",
+    "name": "ssh521/laravel-draggable-modal",
     "description": "A Laravel package for draggable and resizable modal components with Alpine.js",
     "type": "library",
     "license": "MIT",
     "authors": [
         {
             "name": "Philip Shin",
-            "email": "your-email@example.com"
+            "email": "ssh521@naver.com"
         }
     ],
     "keywords": [

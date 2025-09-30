@@ -42,27 +42,71 @@ Publish the JavaScript files:
 php artisan vendor:publish --tag=draggable-modal-js
 ```
 
-### Setup JavaScript
+### Setup Alpine.js
 
-After publishing, import the modal initializer in your main JavaScript file:
+Install Alpine.js via npm (if not already installed):
 
-```javascript
-// resources/js/app.js
-import './vendor/draggable-modal/init';
+```bash
+npm install alpinejs
 ```
 
-Or if you prefer to use the modal-manager directly:
+### Setup JavaScript
+
+After publishing, configure your main JavaScript file:
 
 ```javascript
 // resources/js/app.js
+import './bootstrap';
+import Alpine from 'alpinejs';
+
+// Make Alpine available globally
+window.Alpine = Alpine;
+
+// Import modal initializer BEFORE starting Alpine
+import './vendor/draggable-modal/init';
+
+// Start Alpine
+Alpine.start();
+```
+
+**Alternative method** - Use the modal-manager directly:
+
+```javascript
+// resources/js/app.js
+import './bootstrap';
+import Alpine from 'alpinejs';
 import draggableModal from './vendor/draggable-modal/modal-manager';
+
+window.Alpine = Alpine;
 
 document.addEventListener('alpine:init', () => {
     Alpine.data('draggableModal', draggableModal);
 });
+
+Alpine.start();
 ```
 
-Make sure Alpine.js is loaded before the modal scripts.
+### Add Required CSS
+
+Add the `x-cloak` style to your layout or main CSS file:
+
+```html
+<!-- In your layout blade file (e.g., resources/views/layouts/app.blade.php) -->
+<style>
+    [x-cloak] { display: none !important; }
+</style>
+```
+
+Or add it to your CSS file:
+
+```css
+/* resources/css/app.css */
+[x-cloak] {
+    display: none !important;
+}
+```
+
+**Important**: The `x-cloak` style is **required** for the modals to work correctly. Without it, modals may not display or hide properly.
 
 ## Usage
 
