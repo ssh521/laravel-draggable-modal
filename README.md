@@ -25,8 +25,30 @@ A Laravel package that provides draggable and resizable modal components with Al
 Install the package via Composer:
 
 ```bash
-composer require philipshin/laravel-draggable-modal
+composer require ssh521/laravel-draggable-modal
 ```
+
+### (Optional) Publish Sample Views
+
+If you want to try the package quickly, publish the sample views:
+
+```bash
+php artisan vendor:publish --tag=draggable-modal-sample-views
+```
+
+The package also auto-loads sample routes for convenience:
+
+```
+GET /draggable-modal/sample/single
+GET /draggable-modal/sample/multi
+GET /draggable-modal/sample/alert
+GET /draggable-modal/sample/vite
+```
+
+> If changes are not reflected after publishing, clear caches:
+> ```bash
+> php artisan optimize:clear
+> ```
 
 ### Publish Assets
 
@@ -41,6 +63,9 @@ Publish the JavaScript files:
 ```bash
 php artisan vendor:publish --tag=draggable-modal-js
 ```
+
+> Published JS files are copied to:
+> `resources/js/vendor/draggable-modal/`
 
 ### Setup Alpine.js
 
@@ -68,6 +93,8 @@ import './vendor/draggable-modal/init';
 // Start Alpine
 Alpine.start();
 ```
+
+> Important: Import `init` BEFORE `Alpine.start()` so that components and event listeners are registered.
 
 **Alternative method** - Use the modal-manager directly:
 
@@ -108,69 +135,77 @@ Or add it to your CSS file:
 
 **Important**: The `x-cloak` style is **required** for the modals to work correctly. Without it, modals may not display or hide properly.
 
+> Note: The trigger uses Alpine's `$dispatch`. Ensure triggers and modals are inside an Alpine scope, e.g. wrap with `x-data="{}"`.
+
 ## Usage
 
 ### Basic Draggable Modal
 
 ```blade
-<x-draggable-modal
-    id="my-modal"
-    title="My Modal"
-    :width="800"
-    :height="600">
+<div x-data="{}">
+    <x-draggable-modal
+        id="my-modal"
+        title="My Modal"
+        :width="800"
+        :height="600">
 
-    <div class="p-4">
-        Modal content goes here
-    </div>
-</x-draggable-modal>
+        <div class="p-4">
+            Modal content goes here
+        </div>
+    </x-draggable-modal>
 
-<!-- Trigger the modal -->
-<x-modal-trigger
-    text="Open Modal"
-    modal-id="my-modal" />
+    <!-- Trigger the modal -->
+    <x-modal-trigger
+        text="Open Modal"
+        modal-id="my-modal" />
+</div>
 ```
 
 ### Multi-Modal Support
 
 ```blade
-<x-draggable-modal-multi
-    id="modal-1"
-    title="First Modal">
+<div x-data="{}">
+    <x-draggable-modal-multi
+        id="modal-1"
+        title="First Modal">
 
-    <div class="p-4">
-        First modal content
-    </div>
-</x-draggable-modal-multi>
+        <div class="p-4">
+            First modal content
+        </div>
+    </x-draggable-modal-multi>
 
-<x-draggable-modal-multi
-    id="modal-2"
-    title="Second Modal">
+    <x-draggable-modal-multi
+        id="modal-2"
+        title="Second Modal">
 
-    <div class="p-4">
-        Second modal content
-    </div>
-</x-draggable-modal-multi>
+        <div class="p-4">
+            Second modal content
+        </div>
+    </x-draggable-modal-multi>
 
-<!-- Triggers -->
-<x-modal-trigger text="Open Modal 1" modal-id="modal-1" />
-<x-modal-trigger text="Open Modal 2" modal-id="modal-2" />
+    <!-- Triggers -->
+    <x-modal-trigger text="Open Modal 1" modal-id="modal-1" />
+    <x-modal-trigger text="Open Modal 2" modal-id="modal-2" />
+</div>
 ```
 
 ### Alert Modal
 
 ```blade
-<x-draggable-modal-alert
-    id="success-alert"
-    title="Success!"
-    message="Your action was completed successfully."
-    type="success" />
+<div x-data="{}">
+    <x-draggable-modal-alert
+        id="success-alert"
+        title="Success!"
+        message="Your action was completed successfully."
+        type="success" />
 
-<!-- Available types: info, success, warning, error -->
+    <!-- Available types: info, success, warning, error -->
 
-<x-modal-trigger
-    text="Show Alert"
-    modal-id="success-alert"
-    modal-type="alert" />
+    <x-modal-trigger
+        text="Show Alert"
+        modal-id="success-alert"
+        modal-type="alert" />
+</div>
 ```
 
 ### Modal Trigger Variants
@@ -264,6 +299,8 @@ window.dispatchEvent(new CustomEvent('open-alert-modal', {
 }));
 ```
 
+> You can also open a modal by dispatching a DOM event from Blade or JS. The package registers listeners in `resources/js/vendor/draggable-modal/init.js`.
+
 ## Livewire Integration
 
 You can trigger modals from Livewire components:
@@ -290,6 +327,24 @@ After publishing the JavaScript files, you can modify the behavior in:
 ```
 resources/js/vendor/draggable-modal/
 ```
+
+If you change file locations or names, update your imports accordingly and rebuild assets (`npm run build`).
+
+## Troubleshooting
+
+1. `x-cloak` 스타일이 누락되지 않았는지 확인하세요.
+2. `resources/js/app.js`에서 `window.Alpine = Alpine;` 설정 후 `import './vendor/draggable-modal/init'`를 `Alpine.start()` 전에 불러오세요.
+3. 퍼블리시 후 반영되지 않으면 캐시를 비우세요:
+   ```bash
+   php artisan optimize:clear
+   ```
+4. 빌드/번들 후에도 동작하지 않으면 다시 빌드:
+   ```bash
+   npm run build
+   ```
+5. 콘솔 에러를 확인하고, 퍼블리시된 경로가 맞는지 점검하세요:
+   - `resources/js/vendor/draggable-modal/init.js`
+   - `resources/js/vendor/draggable-modal/modal-manager.js`
 
 ## Browser Support
 

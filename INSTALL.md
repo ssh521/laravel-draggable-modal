@@ -2,10 +2,17 @@
 
 This guide will help you install and configure Laravel Draggable Modal step by step.
 
+## Prerequisites
+
+- PHP ≥ 8.2
+- Laravel 11 or 12
+- Vite 빌드 구성 활성화(기본 `@vite` 사용 전제)
+- Alpine.js (아래 단계에서 설치)
+
 ## Step 1: Install the Package
 
 ```bash
-composer require philipshin/laravel-draggable-modal
+composer require ssh521/laravel-draggable-modal
 ```
 
 ## Step 2: Install Alpine.js
@@ -29,6 +36,11 @@ This will copy the modal JavaScript files to `resources/js/vendor/draggable-moda
 ```bash
 php artisan vendor:publish --tag=draggable-modal-views
 ```
+
+> 참고: 퍼블리시 후 변경 사항이 반영되지 않으면 아래 명령으로 캐시를 비우세요.
+> ```bash
+> php artisan optimize:clear
+> ```
 
 ## Step 4: Configure JavaScript
 
@@ -164,6 +176,7 @@ Visit `http://your-app.test/test-modal` and click the "Open Modal" button. If th
    - Make sure `window.Alpine = Alpine;` is set
    - Make sure `init.js` is imported BEFORE `Alpine.start()`
    - Make sure `Alpine.start()` is called
+   - If you published files, try `php artisan optimize:clear`
 
 4. **Check browser console for errors**
    - Open Developer Tools (F12)
@@ -194,11 +207,23 @@ If you see errors like "Alpine is not defined" or "draggableModal is not defined
    npm run build
    ```
 
+4. 퍼블리시 후 경로가 맞는지 확인:
+   - `resources/js/vendor/draggable-modal/init.js` 존재 여부 확인
+   - `resources/js/app.js`에서 `import './vendor/draggable-modal/init'` 경로 확인
+
 ### Modal appears but can't drag or resize
 
 1. Check if Tailwind CSS is installed and configured
 2. Verify the modal component files are published correctly
 3. Check browser console for JavaScript errors
+
+### Blade components not found
+
+1. 뷰/컴포넌트 캐시를 비웁니다:
+   ```bash
+   php artisan view:clear && php artisan optimize:clear
+   ```
+2. Laravel 11/12 환경인지 확인하세요 (이 패키지는 11/12를 대상으로 합니다)
 
 ## Next Steps
 
