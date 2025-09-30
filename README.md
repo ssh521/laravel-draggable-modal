@@ -2,6 +2,8 @@
 
 A Laravel package that provides draggable and resizable modal components with Alpine.js support.
 
+![Multi draggable modal demo](./screenshot.png)
+
 ## Features
 
 - 🖱️ **Draggable Modals**: Click and drag modals to reposition them
