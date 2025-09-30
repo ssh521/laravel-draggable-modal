@@ -1,0 +1,49 @@
+{
+    "name": "philipshin/laravel-draggable-modal",
+    "description": "A Laravel package for draggable and resizable modal components with Alpine.js",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Philip Shin",
+            "email": "your-email@example.com"
+        }
+    ],
+    "keywords": [
+        "laravel",
+        "modal",
+        "draggable",
+        "alpine",
+        "alpinejs",
+        "blade",
+        "component"
+    ],
+    "require": {
+        "php": "^8.2",
+        "illuminate/support": "^11.0|^12.0",
+        "illuminate/view": "^11.0|^12.0"
+    },
+    "require-dev": {
+        "orchestra/testbench": "^9.0",
+        "phpunit/phpunit": "^11.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "PhilipShin\\LaravelDraggableModal\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "PhilipShin\\LaravelDraggableModal\\Tests\\": "tests/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "PhilipShin\\LaravelDraggableModal\\DraggableModalServiceProvider"
+            ]
+        }
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true
+}
