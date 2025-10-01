@@ -1,6 +1,6 @@
 <?php
 
-namespace PhilipShin\LaravelDraggableModal\View\Components;
+namespace ssh521\LaravelDraggableModal\View\Components;
 
 use Illuminate\View\Component;
 
