@@ -18,12 +18,12 @@ class DraggableModalServiceProvider extends ServiceProvider
     {
         // Publish views
         $this->publishes([
-            __DIR__.'/../resources/views' => resource_path('views/vendor/draggable-modal'),
-        ], 'draggable-modal-views');
+            __DIR__.'/../resources/views/components' => resource_path('views/components'),
+        ], 'draggable-modal-components');
 
         // Publish JavaScript files
         $this->publishes([
-            __DIR__.'/../resources/js' => resource_path('js/vendor/draggable-modal'),
+            __DIR__.'/../resources/js' => resource_path('js/draggable-modal'),
         ], 'draggable-modal-js');
 
         // Publish sample views (optional)
