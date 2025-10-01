@@ -1,6 +1,6 @@
 <?php
 
-namespace PhilipShin\LaravelDraggableModal;
+namespace ssh521\LaravelDraggableModal;
 
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
