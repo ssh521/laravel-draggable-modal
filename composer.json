@@ -5,7 +5,7 @@
     "license": "MIT",
     "authors": [
         {
-            "name": "Philip Shin",
+            "name": "ssh521",
             "email": "ssh521@naver.com"
         }
     ],
@@ -29,18 +29,18 @@
     },
     "autoload": {
         "psr-4": {
-            "PhilipShin\\LaravelDraggableModal\\": "src/"
+            "ssh521\\LaravelDraggableModal\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "PhilipShin\\LaravelDraggableModal\\Tests\\": "tests/"
+            "ssh521\\LaravelDraggableModal\\Tests\\": "tests/"
         }
     },
     "extra": {
         "laravel": {
             "providers": [
-                "PhilipShin\\LaravelDraggableModal\\DraggableModalServiceProvider"
+                "ssh521\\LaravelDraggableModal\\DraggableModalServiceProvider"
             ]
         }
     },
