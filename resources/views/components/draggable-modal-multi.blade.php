@@ -31,12 +31,12 @@ $centerY = $initialY ?? 'Math.floor((window.innerHeight - ' . $height . ') / 2)'
 })" 
 x-show="isOpen" 
 @keydown.escape.window="{{ $closeOnEscape ? 'close()' : '' }}" 
-@open-modal-multi.window="
+@open-modal.window="
     if ($event.detail.modalId === '{{ $modalId }}') {
         openModal();
     }
 " 
-@close-modal-multi.window="
+@close-modal.window="
     if ($event.detail.modalId === '{{ $modalId }}') {
         close();
     }

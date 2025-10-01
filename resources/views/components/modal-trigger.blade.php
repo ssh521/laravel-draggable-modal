@@ -40,10 +40,10 @@
     
     // 모달 타입에 따른 이벤트 결정
     $eventName = match($modalType) {
-        'multi' => 'open-modal-multi',
-        'single' => 'draggable-modal',
-        'alert' => 'open-alert-modal',
-        default => 'open-modal-multi'
+        'multi' => 'open-modal',
+        'single' => 'open-modal',
+        'alert' => 'open-modal',
+        default => 'open-modal'
     };
 @endphp
 

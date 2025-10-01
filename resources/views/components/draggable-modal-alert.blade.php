@@ -50,12 +50,12 @@ $buttonClasses = match($type) {
 })" 
 x-show="isOpen" 
 @keydown.escape.window="{{ $closeOnEscape ? 'close()' : '' }}"
-@open-alert-modal.window="
+@open-modal.window="
     if ($event.detail.modalId === '{{ $modalId }}') {
         openModal();
     }
 "
-@close-alert-modal.window="
+@close-modal.window="
     if ($event.detail.modalId === '{{ $modalId }}') {
         close();
     }

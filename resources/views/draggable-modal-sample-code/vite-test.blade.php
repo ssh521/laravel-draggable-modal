@@ -59,7 +59,7 @@
     <script>
         function openModal(modalId) {
             // init.js에서 등록한 이벤트 리스너가 처리합니다
-            window.dispatchEvent(new CustomEvent('draggable-modal', {
+            window.dispatchEvent(new CustomEvent('open-modal', {
                 detail: { modalId: modalId }
             }));
         }

@@ -16,6 +16,11 @@ class DraggableModalServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        // Publish config
+        $this->publishes([
+            __DIR__.'/../config/draggable-modal.php' => config_path('draggable-modal.php'),
+        ], 'draggable-modal-config');
+
         // Publish views
         $this->publishes([
             __DIR__.'/../resources/views/components' => resource_path('views/components'),
@@ -34,8 +39,10 @@ class DraggableModalServiceProvider extends ServiceProvider
         // Load views from package
         $this->loadViewsFrom(__DIR__.'/../resources/views', 'draggable-modal');
 
-        // Load sample routes
-        $this->loadRoutesFrom(__DIR__.'/../routes/draggable-modal-sample.php');
+        // Load sample routes (configurable)
+        if (config('draggable-modal.load_sample_routes', true)) {
+            $this->loadRoutesFrom(__DIR__.'/../routes/draggable-modal-sample.php');
+        }
 
         // Register Blade components
         Blade::component('draggable-modal', DraggableModal::class);
@@ -49,6 +56,9 @@ class DraggableModalServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
+        // Merge package config
+        $this->mergeConfigFrom(
+            __DIR__.'/../config/draggable-modal.php', 'draggable-modal'
+        );
     }
 }

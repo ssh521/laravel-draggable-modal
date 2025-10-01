@@ -29,12 +29,12 @@ Publish the JavaScript files:
 php artisan vendor:publish --tag=draggable-modal-js
 ```
 
-This will copy the modal JavaScript files to `resources/js/vendor/draggable-modal/`.
+This will copy the modal JavaScript files to `resources/js/draggable-modal/`.
 
 (Optional) Publish the views if you want to customize them:
 
 ```bash
-php artisan vendor:publish --tag=draggable-modal-views
+php artisan vendor:publish --tag=draggable-modal-components
 ```
 
 > 참고: 퍼블리시 후 변경 사항이 반영되지 않으면 아래 명령으로 캐시를 비우세요.
@@ -54,7 +54,7 @@ import Alpine from 'alpinejs';
 window.Alpine = Alpine;
 
 // Import modal initializer BEFORE starting Alpine
-import './vendor/draggable-modal/init';
+import './draggable-modal/init';
 
 // Start Alpine
 Alpine.start();
@@ -208,8 +208,8 @@ If you see errors like "Alpine is not defined" or "draggableModal is not defined
    ```
 
 4. 퍼블리시 후 경로가 맞는지 확인:
-   - `resources/js/vendor/draggable-modal/init.js` 존재 여부 확인
-   - `resources/js/app.js`에서 `import './vendor/draggable-modal/init'` 경로 확인
+   - `resources/js/draggable-modal/init.js` 존재 여부 확인
+   - `resources/js/app.js`에서 `import './draggable-modal/init'` 경로 확인
 
 ### Modal appears but can't drag or resize
 

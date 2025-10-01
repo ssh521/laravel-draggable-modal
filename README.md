@@ -24,120 +24,7 @@ A Laravel package that provides draggable and resizable modal components with Al
 
 ## Installation
 
-Install the package via Composer:
-
-```bash
-composer require ssh521/laravel-draggable-modal
-```
-
-### (Optional) Publish Sample Views
-
-If you want to try the package quickly, publish the sample views:
-
-```bash
-php artisan vendor:publish --tag=draggable-modal-sample-views
-```
-
-The package also auto-loads sample routes for convenience:
-
-```
-GET /draggable-modal/sample/single
-GET /draggable-modal/sample/multi
-GET /draggable-modal/sample/alert
-GET /draggable-modal/sample/vite
-```
-
-> If changes are not reflected after publishing, clear caches:
-> ```bash
-> php artisan optimize:clear
-> ```
-
-### Publish Assets
-
-Publish the views (optional, if you want to customize):
-
-```bash
-php artisan vendor:publish --tag=draggable-modal-views
-```
-
-Publish the JavaScript files:
-
-```bash
-php artisan vendor:publish --tag=draggable-modal-js
-```
-
-> Published JS files are copied to:
-> `resources/js/vendor/draggable-modal/`
-
-### Setup Alpine.js
-
-Install Alpine.js via npm (if not already installed):
-
-```bash
-npm install alpinejs
-```
-
-### Setup JavaScript
-
-After publishing, configure your main JavaScript file:
-
-```javascript
-// resources/js/app.js
-import './bootstrap';
-import Alpine from 'alpinejs';
-
-// Make Alpine available globally
-window.Alpine = Alpine;
-
-// Import modal initializer BEFORE starting Alpine
-import './vendor/draggable-modal/init';
-
-// Start Alpine
-Alpine.start();
-```
-
-> Important: Import `init` BEFORE `Alpine.start()` so that components and event listeners are registered.
-
-**Alternative method** - Use the modal-manager directly:
-
-```javascript
-// resources/js/app.js
-import './bootstrap';
-import Alpine from 'alpinejs';
-import draggableModal from './vendor/draggable-modal/modal-manager';
-
-window.Alpine = Alpine;
-
-document.addEventListener('alpine:init', () => {
-    Alpine.data('draggableModal', draggableModal);
-});
-
-Alpine.start();
-```
-
-### Add Required CSS
-
-Add the `x-cloak` style to your layout or main CSS file:
-
-```html
-<!-- In your layout blade file (e.g., resources/views/layouts/app.blade.php) -->
-<style>
-    [x-cloak] { display: none !important; }
-</style>
-```
-
-Or add it to your CSS file:
-
-```css
-/* resources/css/app.css */
-[x-cloak] {
-    display: none !important;
-}
-```
-
-**Important**: The `x-cloak` style is **required** for the modals to work correctly. Without it, modals may not display or hide properly.
-
-> Note: The trigger uses Alpine's `$dispatch`. Ensure triggers and modals are inside an Alpine scope, e.g. wrap with `x-data="{}"`.
+설치와 설정의 전체 단계는 `INSTALL.md`를 참고하세요. README에서는 사용법만 다룹니다.
 
 ## Usage
 
@@ -286,22 +173,17 @@ You can also trigger modals programmatically using custom events:
 
 ```javascript
 // Open a modal
-window.dispatchEvent(new CustomEvent('open-modal-multi', {
+window.dispatchEvent(new CustomEvent('open-modal', {
     detail: { modalId: 'my-modal' }
 }));
 
 // Close a modal
-window.dispatchEvent(new CustomEvent('close-modal-multi', {
+window.dispatchEvent(new CustomEvent('close-modal', {
     detail: { modalId: 'my-modal' }
-}));
-
-// For alert modals
-window.dispatchEvent(new CustomEvent('open-alert-modal', {
-    detail: { modalId: 'my-alert' }
 }));
 ```
 
-> You can also open a modal by dispatching a DOM event from Blade or JS. The package registers listeners in `resources/js/vendor/draggable-modal/init.js`.
+> You can also open a modal by dispatching a DOM event from Blade or JS. The package registers listeners in `resources/js/draggable-modal/init.js`.
 
 ## Livewire Integration
 
@@ -309,7 +191,7 @@ You can trigger modals from Livewire components:
 
 ```php
 // In your Livewire component
-$this->dispatch('open-modal-multi', modalId: 'user-edit-modal');
+$this->dispatch('open-modal', modalId: 'user-edit-modal');
 ```
 
 ## Customization
@@ -319,7 +201,7 @@ $this->dispatch('open-modal-multi', modalId: 'user-edit-modal');
 After publishing the views, you can customize them in:
 
 ```
-resources/views/vendor/draggable-modal/components/
+resources/views/draggable-modal/components/
 ```
 
 ### Customizing JavaScript
@@ -327,26 +209,47 @@ resources/views/vendor/draggable-modal/components/
 After publishing the JavaScript files, you can modify the behavior in:
 
 ```
-resources/js/vendor/draggable-modal/
+resources/js/draggable-modal/
 ```
 
 If you change file locations or names, update your imports accordingly and rebuild assets (`npm run build`).
 
+### Routes: 샘플 라우트 비활성화 및 `web.php`에 직접 추가
+
+샘플 라우트 자동 로드를 끄고자 한다면 설정을 퍼블리시한 뒤 비활성화할 수 있습니다.
+
+1) 설정 퍼블리시
+
+```bash
+php artisan vendor:publish --tag=draggable-modal-config
+```
+
+2) `.env` 또는 `config/draggable-modal.php`에서 비활성화
+
+```env
+DRAGGABLE_MODAL_LOAD_SAMPLE_ROUTES=false
+```
+
+또는 `config/draggable-modal.php`에서
+
+```php
+'load_sample_routes' => false,
+```
+
+3) `routes/web.php`에 직접 추가 예시
+
+```php
+Route::prefix('draggable-modal')->as('draggable-modal.')->group(function () {
+    Route::view('/sample/single', 'draggable-modal-sample-code.single-modal')->name('sample.single');
+    Route::view('/sample/multi', 'draggable-modal-sample-code.multi-modal')->name('sample.multi');
+    Route::view('/sample/alert', 'draggable-modal-sample-code.alert-modal')->name('sample.alert');
+    Route::view('/sample/vite', 'draggable-modal-sample-code.vite-test')->name('sample.vite');
+});
+```
+
 ## Troubleshooting
 
-1. Ensure the `x-cloak` style is present.
-2. In `resources/js/app.js`, set `window.Alpine = Alpine;` and import `./vendor/draggable-modal/init` BEFORE `Alpine.start()`.
-3. If changes after publishing are not reflected, clear caches:
-   ```bash
-   php artisan optimize:clear
-   ```
-4. If it still doesn't work after bundling, rebuild assets:
-   ```bash
-   npm run build
-   ```
-5. Check the browser console for errors and verify published paths exist:
-   - `resources/js/vendor/draggable-modal/init.js`
-   - `resources/js/vendor/draggable-modal/modal-manager.js`
+설치/빌드 관련 문제는 `INSTALL.md`의 Troubleshooting 절을 확인하세요. 사용 중 동작 문제가 있다면 브라우저 콘솔 오류와 Alpine 초기화 여부를 우선 확인해 주세요.
 
 ## Browser Support
 

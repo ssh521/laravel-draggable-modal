@@ -9,17 +9,17 @@ document.addEventListener('alpine:init', () => {
     Alpine.data('draggableModalAlert', draggableModalAlert);
 });
 
-// 모달 이벤트 리스너 등록
-document.addEventListener('open-modal-multi', (event) => {
-    console.log('open-modal-multi 이벤트 수신:', event.detail);
-    const modalId = event.detail.modalId;
+// 모달 이벤트 리스너 등록 (통합)
+document.addEventListener('open-modal', (event) => {
+    console.log('open-modal 이벤트 수신:', event.detail);
+    const modalId = event.detail?.modalId;
 
-    // 해당 모달을 찾아서 열기
+    if (!modalId) return;
+
     const modalElement = document.querySelector(`[x-data*="modalId: '${modalId}'"]`);
     if (modalElement) {
-        // Alpine.js 컴포넌트에 접근하여 모달 열기
         const alpineComponent = Alpine.$data(modalElement);
-        if (alpineComponent && alpineComponent.openModal) {
+        if (alpineComponent && typeof alpineComponent.openModal === 'function') {
             alpineComponent.openModal();
         }
     } else {
@@ -27,17 +27,17 @@ document.addEventListener('open-modal-multi', (event) => {
     }
 });
 
-document.addEventListener('draggable-modal', (event) => {
-    console.log('draggable-modal 이벤트 수신:', event.detail);
-    const modalId = event.detail.modalId;
+document.addEventListener('close-modal', (event) => {
+    console.log('close-modal 이벤트 수신:', event.detail);
+    const modalId = event.detail?.modalId;
 
-    // 해당 모달을 찾아서 열기
+    if (!modalId) return;
+
     const modalElement = document.querySelector(`[x-data*="modalId: '${modalId}'"]`);
     if (modalElement) {
-        // Alpine.js 컴포넌트에 접근하여 모달 열기
         const alpineComponent = Alpine.$data(modalElement);
-        if (alpineComponent && alpineComponent.openModal) {
-            alpineComponent.openModal();
+        if (alpineComponent && typeof alpineComponent.close === 'function') {
+            alpineComponent.close();
         }
     } else {
         console.warn(`모달을 찾을 수 없습니다: ${modalId}`);
