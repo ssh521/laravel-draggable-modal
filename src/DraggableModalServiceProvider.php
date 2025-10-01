@@ -28,7 +28,7 @@ class DraggableModalServiceProvider extends ServiceProvider
 
         // Publish sample views (optional)
         $this->publishes([
-            __DIR__.'/../resources/views/sample' => resource_path('views/draggable-modal-sample-code'),
+            __DIR__.'/../resources/views/draggable-modal-sample-code' => resource_path('views/draggable-modal-sample-code'),
         ], 'draggable-modal-sample-views');
 
         // Load views from package
