@@ -4,10 +4,10 @@ namespace PhilipShin\LaravelDraggableModal;
 
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
-use PhilipShin\LaravelDraggableModal\View\Components\DraggableModal;
-use PhilipShin\LaravelDraggableModal\View\Components\DraggableModalAlert;
-use PhilipShin\LaravelDraggableModal\View\Components\DraggableModalMulti;
-use PhilipShin\LaravelDraggableModal\View\Components\ModalTrigger;
+use ssh521\LaravelDraggableModal\View\Components\DraggableModal;
+use ssh521\LaravelDraggableModal\View\Components\DraggableModalAlert;
+use ssh521\LaravelDraggableModal\View\Components\DraggableModalMulti;
+use ssh521\LaravelDraggableModal\View\Components\ModalTrigger;
 
 class DraggableModalServiceProvider extends ServiceProvider
 {
